@@ -3,7 +3,14 @@
 
 // Copyright 2011 Chris Williams <chris@iterativedesigns.com>
 
-var SerialPortBinding = require("bindings")("serialport.node");
+var bindings = require("bindings");
+var os = require("os");
+try {
+    var SerialPortBinding = bindings("serialport_"+os.platform()+".node");
+} catch (err) {
+    var SerialPortBinding = bindings("serialport.node");
+}
+
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 var fs = require('fs');
