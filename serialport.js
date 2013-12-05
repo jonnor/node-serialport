@@ -3,12 +3,18 @@
 
 // Copyright 2011 Chris Williams <chris@iterativedesigns.com>
 
-var Buffer = require('buffer').Buffer;
-var SerialPortBinding = require("bindings")("serialport.node");
+var bindings = require("bindings");
+var os = require('os');
+var path = require('path');
+try {
+    var SerialPortBinding = bindings(os.type()+path.sep+"serialport.node");
+} catch (err) {
+    var SerialPortBinding = bindings("serialport.node");
+}
 var util = require('util');
 var fs = require('fs');
 var stream = require('stream');
-var path = require('path');
+var Buffer = require('buffer').Buffer;
 var async = require('async');
 var child_process = require('child_process');
 
